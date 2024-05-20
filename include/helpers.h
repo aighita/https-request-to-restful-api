@@ -52,10 +52,32 @@ char *receive_from_server(int sockfd);
 */
 void close_connection(int sockfd);
 
+/**
+ * @brief Extract session cookie from server response.
+ * @param response
+*/
 char* extract_cookie(char* response);
 
+/**
+ * @brief Extract authorization token from server response.
+ * @param response
+*/
 char* extract_token(char *response);
 
+/**
+ * @brief Calculate integer (sum) value of a string by every letter.
+ * @param str
+*/
 int calculateStringValue(const char *str);
+
+/**
+ * @brief Extract body from server's reponse. JSON
+*/
+char* extract_body(const char* response);
+
+/**
+ * @brief Extract response code from server's response.
+*/
+int extract_response_code(char *response);
 
 #endif

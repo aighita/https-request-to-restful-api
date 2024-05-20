@@ -8,3 +8,8 @@ clean:
 	rm client
 
 build: client
+
+check: build run-check clean
+
+run-check:
+	python3 ./checker/checker.py ./client

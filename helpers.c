@@ -169,3 +169,30 @@ void close_connection(int sockfd)
 {
     close(sockfd);
 }
+
+char* extract_body(const char* response) {
+    const char* start_pos = strstr(response, "[");
+    if (start_pos == NULL) {
+        start_pos = strstr(response, "{");
+        if (start_pos == NULL) return NULL;
+    }
+    return strdup(start_pos);
+}
+
+int extract_response_code(char *response) {
+    char* start = strstr(response, "HTTP/1.1 ");
+    if (start == NULL) return -1;
+
+    start += 9;
+
+    char *end = strstr(start, " ");
+    if (start == NULL) return -1;
+
+    size_t len = end - start;
+
+    char *code = malloc(len + 1);
+    strncpy(code, start, len);
+    code[len] = '\0';
+
+    return atoi(code);
+}
