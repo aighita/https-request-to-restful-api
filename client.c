@@ -37,8 +37,6 @@ int main()
 
         int value = calculateStringValue(input);
 
-        sockfd = open_connection(HOST, PORT, AF_INET, SOCK_STREAM, 0);
-
         switch(value) {
         case REGISTER: {
             char username[20] = {0};
@@ -194,8 +192,10 @@ int main()
             break;
         }
 
+        sockfd = open_connection(HOST, PORT, AF_INET, SOCK_STREAM, 0);
         send_to_server(sockfd, message);
         response = receive_from_server(sockfd);
+        close(sockfd);
 
         switch(value) {
         case 537:
@@ -236,9 +236,6 @@ int main()
 
         if ((body != NULL) && (value != ENTER_LIBRARY)) printf("%s\n", body);
     }
-
-    printf("Inchidere program\n");
-    close(sockfd);
 
     free(input);
     free(message);
